@@ -1,0 +1,533 @@
+<title>IPFS PUBSUB COMPUTE</title>
+<style type="text/css">
+body {
+    /*background: #e16a3f;*/
+    background: #7dc176;
+}
+
+.code-editor:before,
+.code-editor:after,
+.code-editor span.control:before,
+.code-editor span.after:after {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    content: '';
+    position: absolute;
+    z-index: 1;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin: 40px auto 0 auto;
+    width: 750px;
+    text-align: left;
+    background-color: #473431;
+    border-radius: 0 0 5px 5px;
+    overflow: auto;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor:before {
+    content: 'IPFS PubSub Compute';
+    /*font-family: 'Consolas';*/
+    color: #222;
+    padding-top: 6px;
+    text-align: center;
+    top: 25px;
+    width: 750px;
+    height: 30px;
+    background-color: #fafafa;
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -o-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+}
+
+.code-editor span.control:before {
+    content: '';
+    top: 34px;
+    z-index: 2;
+    padding: 6px;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -o-border-radius: 20px;
+    -webkit-border-radius: 20px;
+}
+
+.code-editor span.control:nth-child(1):before {
+    margin-left: 15px;
+    background-color: #df6963;
+
+}
+
+.code-editor span.control:nth-child(2):before {
+    margin-left: 35px;
+    background-color: #f5e18a;
+
+}
+
+.code-editor span.control:nth-child(3):before {
+    margin-left: 55px;
+    background-color: #97c38a;
+}
+
+/* -- iPad Screen -- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+    .code-editor {
+        width: 500px;
+    }
+
+    .code-editor:before {
+        width: 500px;
+    }
+}
+
+/* -- iPhone Screen -- */
+@media only screen and (max-width: 479px) {
+    .code-editor {
+        width: 300px;
+    }
+
+    .code-editor:before {
+        width: 300px;
+    }
+}
+
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #ccc;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: 0em 0;
+    height: 500px;
+    overflow: auto;
+}
+
+:not(pre)>code[class*="language-"],
+pre[class*="language-"] {
+    background: #473431;
+}
+
+/* Inline code */
+:not(pre)>code[class*="language-"] {
+    padding: .1em;
+    border-radius: .3em;
+    -moz-border-radius: .3em;
+    -o-border-radius: .3em;
+    -webkit-border-radius: .3em;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999;
+}
+
+.token.punctuation {
+    color: #ccc;
+}
+
+
+.token.tag,
+.token.attr-name,
+.token.namespace {
+    color: #e2777a;
+}
+
+.token.function-name {
+    color: #6196cc;
+}
+
+
+.token.boolean,
+.token.number,
+.token.function {
+    color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+    color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+    color: #cc99cd;
+}
+
+.token.string,
+.token.attr-value,
+.token.regex,
+.token.variable {
+    color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+    color: #67cdcc;
+}
+
+
+.token.important {
+    font-weight: bold;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+pre.line-numbers {
+    position: relative;
+    padding-left: 3.8em;
+    counter-reset: linenumber;
+    padding-bottom: 1px;
+}
+
+pre.line-numbers>code {
+    position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+
+    font-size: 100%;
+    left: -13em;
+    width: 3em;
+    /* works for line-numbers below 1000 lines */
+    letter-spacing: -1px;
+    background-color: #322422;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+.line-numbers-rows>span {
+    pointer-events: none;
+    display: block;
+    counter-increment: linenumber;
+}
+
+.line-numbers-rows>span:before {
+    content: counter(linenumber);
+    color: #999;
+    display: block;
+    padding-right: 0.8em;
+    text-align: right;
+}
+
+.connection-editor {
+
+    padding: 16px;
+    background-color: #2b2b2b;
+
+    /*height: 10%;*/
+    height: 16px;
+
+
+    width: 100%;
+    display: inline-flex;
+    margin-bottom: -10px;
+
+
+    color: #fff;
+
+    margin-bottom: -13px;
+}
+
+.connection-editor div {
+    padding: 0px 10px;
+}
+
+.button {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    /*padding: 16px 32px;*/
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button3 {
+    background-color: #f44336;
+    color: black;
+    border: 2px solid #f44336;
+    margin: 10px 20px;
+}
+
+.button3:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.execute-output {
+    color: #fff;
+    padding: 18px 36px 0px 50px;
+    height: 200px;
+    /*width: 95%;*/
+    width: 663px;
+    background-color: #141414;
+}
+
+.connect-setting input {
+    background-color: #141414;
+    border-radius: 4px;
+    border: none;
+    font-size: 1.25em;
+
+}
+
+.grey-code {
+    margin: 0;
+    background: #36c4fb;
+    padding: 3px 12px;
+    color: #141414;
+    border-radius: 4px;
+}
+
+.execution {
+    background-color: #232323;
+    display: flex;
+    justify-content: flex-end;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11pt;
+}
+
+.event-modal {
+
+    padding: 20px;
+    background-color: #ebebeb;
+    position: fixed;
+    z-index: 10;
+    width: 500px;
+    height: 200px;
+    margin-left: 26%;
+    margin-top: 70px;
+
+    box-shadow: 0px 0px 20px 16px rgba(0, 0, 0, .25);
+    /* width: 100vh; */
+}
+
+#event-editor {
+    height: 100%;
+    width: 100%;
+    /*margin-top: 16px;*/
+}
+
+.backdrop {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(10, 10, 40, 0.75);
+    position: absolute;
+    z-index: 9;
+    margin-top: -40px;
+    margin-left: -8px;
+}
+
+.event-icon {
+    color: #f44336;
+    font-size: 1.5em !important;
+}
+
+.setting-icon {
+    color: #f44336;
+    font-size: 1.25em !important;
+    margin-right: 28em;
+}
+
+pre {
+    white-space: pre-wrap;
+    /* css-3 */
+    white-space: -moz-pre-wrap;
+    /* Mozilla, since 1999 */
+    white-space: -pre-wrap;
+    /* Opera 4-6 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* Internet Explorer 5.5+ */
+}
+
+.execute-output pre {
+    padding-right: 61px;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<!-- loading the human-readable (not minified) version -->
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<!-- <script src="https://unpkg.com/ipfs-http-client/dist/index.js"></script> -->
+<div class="backdrop" style="display: none"></div>
+<div class="event-modal" style="display: none">
+    <div id="event-editor">{&#10;&#9"value":500000&#10;}</div>
+</div>
+<div class="code-editor">
+    <span class="control"></span>
+    <span class="control"></span>
+    <span class="control"></span>
+    <div id="editor" style="height: 50%; width: 100%; margin-top: 16px;">
+
+def fibonacci(max_n):
+    n, prev = 1, 1
+    while n <= max_n:
+        yield n
+        n, prev = n + prev, n
+
+def lambda_handler(event, context):
+    print(event)
+    total = sum(n for n in fibonacci(event["value"]) if n % 2 == 0)
+    return total
+
+    </div>
+    <div class="execution">
+        <div class="execute-button">
+            <i class="fa fa-cogs setting-icon" aria-hidden="true"></i>
+            <i class="fa fa-sticky-note-o event-icon" aria-hidden="true"></i>
+            <button class="button button3">Execute</button></div>
+    </div>
+    <div class="connection-editor" style="display: none;">
+        <div class="connect-setting"><label>Channel</label><input type="text" /></div>
+        <div class="connection-info">
+            <pre class="grey-code">David Test Net</pre>
+        </div>
+    </div>
+    <div class="execute-output">
+        <pre>Waiting for response</pre>
+    </div>
+</div>
+<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="src/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
+<script>
+// const ipfs = window.IpfsHttpClient('localhost', '5001')
+
+function toggleEventPanel() {
+    $(".event-modal").toggle()
+    $(".backdrop").toggle()
+}
+
+function toggleConnectionEditor() {
+    $(".connection-editor").toggle()
+}
+
+function executeCodeRequest() {
+
+    var code = encodeURIComponent(btoa(editor.getValue())) //+"==" //btoa(editor.getValue());
+
+    // var code = "CmRlZiBmaWJvbmFjY2kobWF4X24pOgogICAgbiwgcHJldiA9IDEsIDEKICAgIHdoaWxlIG4gPD0gbWF4X246CiAgICAgICAgeWllbGQgbgogICAgICAgIG4sIHByZXYgPSBuICsgcHJldiwgbgoKCmRlZiBsYW1iZGFfaGFuZGxlcihldmVudCwgY29udGV4dCk6CiAgICBwcmludChldmVudCkKICAgIHRvdGFsID0gc3VtKG4gZm9yIG4gaW4gZmlib25hY2NpKGV2ZW50WyJ2YWx1ZSJdKSBpZiBuICUgMiA9PSAwKQogICAgcmV0dXJuIHRvdGFsCg%3D%3D&"
+
+    var event = encodeURIComponent(btoa(leditor.getValue()))
+
+    console.log({
+        "code": code,
+        "event": event,
+    })
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://localhost:8769/execute?code=" + code + "&event=" + event,
+        "method": "GET",
+        "headers": {}
+    }
+
+    $.ajax(settings).done(function(response) {
+        console.log(response);
+        $(".execute-output pre").html(JSON.stringify(response))
+    });
+}
+
+
+$(".button3").on("click", function(event) {
+    executeCodeRequest()
+})
+
+$(".setting-icon").on("click", function(event) {
+    toggleConnectionEditor()
+})
+
+$(".event-icon").on("click", function(event) {
+    toggleEventPanel()
+})
+
+$(".backdrop").on("click", function(event) {
+    toggleEventPanel()
+})
+
+var editor = ace.edit("editor");
+// editor.setTheme("ace/theme/monokai");
+// editor.setTheme("ace/theme/vibrant");
+// editor.setTheme("ace/theme/twilight");
+// editor.setTheme("ace/theme/solarized_light");
+editor.setTheme("ace/theme/merbivore_soft");
+
+
+newMode = "python"
+editor.session.setMode("ace/mode/" + newMode)
+
+
+var leditor = ace.edit("event-editor");
+// editor.setTheme("ace/theme/twilight");
+leditor.setTheme("ace/theme/chrome");
+
+newMode = "json"
+leditor.session.setMode("ace/mode/" + newMode)
+</script>

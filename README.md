@@ -8,6 +8,18 @@ This is a tiny IPFS PubSub application built in Golang and is less than 130 line
   <img width="481" height="550" src="https://github.com/drbh/ipfs-pubsub-compute/blob/master/example/demo.gif">
 </p>
 
+## Features
+- [X] Web UI for Python 3.7 code
+- [X] Send code and event in Base64 to IPFS pubsub channel
+- [X] Lambda Docker listens to pubsub channel
+- [X] Docker executes code and returns to IPFS pubsub result channel
+- [X] Server listen to response channel and sends compute result to web UI
+- [X] End to end WEB→IPFS→DOCKER→IPFS→WEB
+
+- [ ] Make channel changable from UI
+- [ ] Stop panic on code execute failure
+- [ ] Allow user to deploy code to IPFS as file
+- [ ] Allow compute app to execute file contents and not just pubsub message
  
 ## Setup
 
@@ -53,4 +65,8 @@ Run `go` source files files, you'll need to `go get` a few libraries
 go run execute.go server.go 
 ```
 
+The application is available at 
 
+```
+http://localhost:8769/
+```

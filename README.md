@@ -1,5 +1,8 @@
 # ipfs-pubsub-compute
 
+Article here https://medium.com/@david.richard.holtz/an-ipfs-application-demo-49a1255ffd0
+
+
 ## Overview
 
 This is a tiny IPFS PubSub application built in Golang and is less than 130 lines of code. It allows you to write `Python 3.7` code in the browser send the code and the input to IPFS pubsub, which another listening device in the channel then picks up and executes using AWS's Lambda Docker container.

@@ -4,12 +4,13 @@ import (
 	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
-	shell "github.com/ipfs/go-ipfs-api"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
 	"time"
+
+	shell "github.com/ipfs/go-ipfs-api"
 )
 
 type Message struct {

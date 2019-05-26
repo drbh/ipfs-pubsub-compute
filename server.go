@@ -2,11 +2,14 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/gin-gonic/gin"
 	shell "github.com/ipfs/go-ipfs-api"
+
 	// "net/http"
-	"github.com/gin-gonic/contrib/static"
 	"strings"
+
+	"github.com/gin-gonic/contrib/static"
 )
 
 var sh = shell.NewShell("localhost:5001")
